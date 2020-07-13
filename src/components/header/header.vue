@@ -9,13 +9,10 @@
             <i class="el-icon-refresh"></i>
         </button>
         <button class="btn-tool" title="全屏" @click="Utils.fullScreen">
-            <i class="el-icon-rank"></i>
-        </button>
-        <button class="btn-tool" title="便签" @click="dialogVisible = true" >
-          <i class="el-icon-edit"></i>
+            <i class="el-icon-full-screen"></i>
         </button>
       </el-col>
-      <el-col :span="6" align="right">
+      <el-col :span="11" align="right">
         <span>{{ Utils.todayDate() }}</span>
         <el-dropdown trigger="click" class="user-name" @command="handleCommand">
           <span class="el-dropdown-link">

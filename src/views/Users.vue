@@ -29,7 +29,7 @@
       </el-table-column>
       <el-table-column
         prop="phone"
-        label="手机"
+        label="联系方式"
         width="180">
       </el-table-column>
       <el-table-column
@@ -48,11 +48,13 @@
             size="mini"
             type="primary"
             plain
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            @click="handleEdit(scope.$index, scope.row)">编辑
+          </el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleDelete(scope.$index, scope.row)">删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,9 +86,9 @@
         </el-form-item>
         <el-form-item label="状态" label-width="50px">
           <el-switch v-model="user.status" active-color="#13ce66"
-            inactive-color="#ff4949"
-            :active-value="1"
-            :inactive-value="0"></el-switch>
+                     inactive-color="#ff4949"
+                     :active-value="1"
+                     :inactive-value="0"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -98,129 +100,131 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      users: [],
-      user: {
-        id: '',
-        date: '',
-        name: '',
-        phone: '',
-        address: '',
-        status: 0
-      },
-      userBackup: Object.assign({}, this.user),
-      multipleSelection: [],
-      userFormVisible: false,
-      dialogTitle: '',
-      rowIndex: 9999,
-      rules: {
-        name: [
-          { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
-        ]
-      }
-    }
-  },
-  mounted () {
-    this.getUsers()
-  },
-  methods: {
-    getUsers () {
-      this.loading = true
-      this.$http('/api/users').then((res) => {
-        this.users = res.data
-      }).catch((err) => {
-        console.error(err)
-      })
-    },
-    handleEdit (index, row) {
-      this.dialogTitle = '编辑'
-      this.user = Object.assign({}, row)
-      this.userFormVisible = true
-      this.rowIndex = index
-    },
-    submitUser (formName) {
-      // 表单验证
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          let id = this.user.id
-          if (id) {
-            // id非空-修改
-            this.users.splice(this.rowIndex, 1, this.user)
-          } else {
-            // id为空-新增
-            this.user.id = this.users.length + 1
-            this.users.unshift(this.user)
-          }
-          this.userFormVisible = false
-          this.$message({
-            type: 'success',
-            message: id ? '修改成功！' : '新增成功！'
-          })
+  export default {
+    data () {
+      return {
+        users: [],
+        user: {
+          id: '',
+          date: '',
+          name: '',
+          phone: '',
+          address: '',
+          status: 0
+        },
+        userBackup: Object.assign({}, this.user),
+        multipleSelection: [],
+        userFormVisible: false,
+        dialogTitle: '',
+        rowIndex: 9999,
+        rules: {
+          name: [
+            { required: true, message: '请输入姓名', trigger: 'blur' },
+            { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+          ]
         }
-      })
+      }
     },
-    handleDelete (index, row) {
-      this.$confirm(`确定删除用户 【${row.name}】 吗?`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.users.splice(index, 1)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
+    mounted () {
+      this.getUsers()
+    },
+    methods: {
+      getUsers () {
+        this.loading = true
+        this.$http('/api/users').then((res) => {
+          this.users = res.data
+        }).catch((err) => {
+          console.error(err)
         })
-      }).catch(() => {
-        console.log('取消删除')
-      })
-    },
-    resetForm (formName) {
-      this.$refs[formName].clearValidate()
-    },
-    mulDelete () {
-      let len = this.multipleSelection.length
-      if (len === 0) {
-        this.$message({
-          type: 'warning',
-          message: '请至少选择一项！'
+      },
+      handleEdit (index, row) {
+        this.dialogTitle = '编辑'
+        this.user = Object.assign({}, row)
+        this.userFormVisible = true
+        this.rowIndex = index
+      },
+      submitUser (formName) {
+        // 表单验证
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let id = this.user.id
+            if (id) {
+              // id非空-修改
+              this.users.splice(this.rowIndex, 1, this.user)
+            } else {
+              // id为空-新增
+              this.user.id = this.users.length + 1
+              this.users.unshift(this.user)
+            }
+            this.userFormVisible = false
+            this.$message({
+              type: 'success',
+              message: id ? '修改成功！' : '新增成功！'
+            })
+          }
         })
-      } else {
-        this.$confirm(`确定删除选中的 ${len} 个用户吗？`, '提示', {
+      },
+      handleDelete (index, row) {
+        this.$confirm(`确定删除用户 【${row.name}】 吗?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          this.users.splice(index, 1)
           this.$message({
             type: 'success',
-            message: `成功删除了${len}条数据！`
+            message: '删除成功!'
           })
         }).catch(() => {
           console.log('取消删除')
         })
+      },
+      resetForm (formName) {
+        this.$refs[formName].clearValidate()
+      },
+      mulDelete () {
+        let len = this.multipleSelection.length
+        if (len === 0) {
+          this.$message({
+            type: 'warning',
+            message: '请至少选择一项！'
+          })
+        } else {
+          this.$confirm(`确定删除选中的 ${len} 个用户吗？`, '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: `成功删除了${len}条数据！`
+            })
+          }).catch(() => {
+            console.log('取消删除')
+          })
+        }
+      },
+      selectChange (val) {
+        this.multipleSelection = val
+      },
+      handleAdd () {
+        this.dialogTitle = '新增'
+        this.user = Object.assign({}, this.userBackup)
+        this.userFormVisible = true
       }
-    },
-    selectChange (val) {
-      this.multipleSelection = val
-    },
-    handleAdd () {
-      this.dialogTitle = '新增'
-      this.user = Object.assign({}, this.userBackup)
-      this.userFormVisible = true
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
   .user-box {
     width: 100%;
+
     .tool-box {
       padding: 10px 10px;
       border-bottom: 1px solid #eee;
     }
+
     .el-pagination {
       margin-top: 20px;
     }

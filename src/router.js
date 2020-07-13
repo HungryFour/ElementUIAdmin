@@ -3,8 +3,7 @@ import Router from 'vue-router'
 import Index from './views/Index.vue'
 import Console from './views/Console.vue'
 import Users from './views/Users.vue'
-import Articles from './views/Articles.vue'
-import Echarts from './views/Echarts.vue'
+import Goods from './views/Goods.vue'
 import Login from './views/Login.vue'
 import NotFound from './views/NotFound.vue'
 
@@ -33,14 +32,9 @@ const router = new Router({
           component: Users
         },
         {
-          path: '/articles',
-          name: 'articles',
-          component: Articles
-        },
-        {
-          path: '/echarts',
-          name: 'echarts',
-          component: Echarts
+          path: '/goods',
+          name: 'goods',
+          component: Goods
         },
         {
           path: '/404',

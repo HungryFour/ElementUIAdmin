@@ -12,12 +12,12 @@
       <span slot="title">主页</span>
     </el-menu-item>
     <el-menu-item index="/users">
-      <i class="el-icon-menu"></i>
+      <i class="el-icon-user"></i>
       <span slot="title">用户</span>
     </el-menu-item>
-    <el-menu-item index="/articles">
-      <i class="el-icon-document"></i>
-      <span slot="title">文章</span>
+    <el-menu-item index="/goods">
+      <i class="el-icon-s-goods"></i>
+      <span slot="title">商品</span>
     </el-menu-item>
     <el-submenu index="4">
       <template slot="title">
@@ -27,10 +27,6 @@
       <el-menu-item index="/profile">基本资料 (空)</el-menu-item>
       <el-menu-item index="/password">修改密码 (空)</el-menu-item>
     </el-submenu>
-    <el-menu-item index="/echarts">
-      <i class="el-icon-share"></i>
-      <span slot="title">图表</span>
-    </el-menu-item>
   </el-menu>
 </template>
 

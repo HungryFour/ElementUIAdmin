@@ -1,6 +1,6 @@
 <template>
   <div class="console">
-    THANK YOU , WELCOME TO HERE @
+    THANK YOU , WELCOME TO POPMART @
   </div>
 </template>
 

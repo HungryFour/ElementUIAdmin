@@ -14,7 +14,6 @@ export default class Utils {
   // 浏览器全屏
   static fullScreen () {
     let isFull = document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen
-
     // 判断是否全屏
     if (isFull) {
       let close = document.exitFullscreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || document.msExitFullscreen
